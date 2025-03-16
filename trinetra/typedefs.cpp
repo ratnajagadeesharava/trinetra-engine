@@ -17,6 +17,17 @@ string readFile(const string& fileName) {
     return false;
 }
 
+ void CheckOpenGLError(const char* file, const char* function, int line)
+ {
+     GLenum error;
+     while ((error = glGetError()) != GL_NO_ERROR)
+     {
+         std::cerr << "[OpenGL ERROR] (" << error << ") in "
+             << file << " -> " << function
+             << " at line " << line << endl;
+     }
+ }
+
 
  void GlClearAllErrors() {
     while (glGetError() != GL_NO_ERROR) {}

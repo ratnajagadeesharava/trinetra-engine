@@ -31,14 +31,12 @@ typedef std::stringstream stringstream;
  void GlClearAllErrors();
 
  bool GLCheckErrorStatus(const char* function, int line);
+ void CheckOpenGLError(const char* file,const char* function, int line);
 
 
 #define GLCheck(x) do { \
-    GlClearAllErrors(); \
     x; \
-    if (GLCheckErrorStatus(#x, __LINE__)) { \
-        std::cerr << "OpenGL Error detected in function: " << #x << " at line " << __LINE__ << endl; \
-    } \
+    CheckOpenGLError(__FILE__,#x, __LINE__); \
 } while(0)
 
 
