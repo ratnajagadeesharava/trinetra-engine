@@ -3,17 +3,12 @@
 class Mesh
 {
 public:
-	GLuint  VAO, VBO;
-
-
-	Mesh(const vector<Vector3> vert,GLuint ShaderProgramId);
-
+	GLuint  VAO, VBO,NBO;
+	Mesh(const vector<Vector3>& vert, const vector<Vector3> normals, GLuint ShaderProgramId);
 	void Draw();
-
 	~Mesh();
 protected:
 	GLuint ShaderId;
-	bool IsColor;
 	int verticesSize;
 };
 
