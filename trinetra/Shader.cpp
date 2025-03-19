@@ -15,13 +15,6 @@ void Shader::CreateShaderProgram()
 	glAttachShader(ProgramId, VertexShader);
 	glAttachShader(ProgramId, FragmentShader);
 	glLinkProgram(ProgramId);
-	GLint success;
-	glGetProgramiv(ProgramId, GL_LINK_STATUS, &success);
-	if (!success) {
-		char infoLog[1024];
-		glGetProgramInfoLog(ProgramId, 1024, nullptr, infoLog);
-		std::cerr << "Shader Linking Failed:\n" << infoLog << endl;
-	}
 	glValidateProgram(ProgramId);
 	glDetachShader(ProgramId, VertexShader);
 	glDetachShader(ProgramId, FragmentShader);
@@ -34,16 +27,11 @@ GLuint Shader::CompileShader(string& shaderSrc, GLuint shaderType)
 	glShaderSource(shader, 1, &srcCode, nullptr);
 	glCompileShader(shader);
 	GLint success;
-	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+	glGetShaderiv(shader, GL_COMPILE_STATUS,&success);
 	if (!success) {
-		const string shaderName = shaderType == GL_FRAGMENT_SHADER ? "Fragment Shader" : "Vertex Shader";
 		char infoLog[512];
 		glGetShaderInfoLog(shader, 512, nullptr, infoLog);
-		std::cerr << "Shader Compilation Failed:\n" << shaderName << "  --> " << infoLog << endl;
+		std::cerr << "Shader Compilation Failed:\n" << infoLog << endl;
 	}
 	return shader;
-}
-
-Shader::~Shader()
-{
 }
